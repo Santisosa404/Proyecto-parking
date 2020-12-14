@@ -1,7 +1,7 @@
-from src.Models.Motocicleta import Motocicleta
-from src.Models.Plaza import Plaza
-from src.Models.Turismo import Turismo
-from src.Service.PlazaService import PlazaService
+from proyecto_parking.src.Models.Motocicleta import Motocicleta
+from proyecto_parking.src.Models.Plaza import Plaza
+from proyecto_parking.src.Models.Turismo import Turismo
+from proyecto_parking.src.Service.PlazaService import PlazaService
 import random
 from datetime import  datetime
 
@@ -32,6 +32,7 @@ class ParkingController():
             return print('El vehiculo no se ha podido depositar\n')
 
     def asignarPlaza(self,Vehiculo):
+        self.Parking.actualizar()
         if type(Vehiculo)== Turismo:
             plaza = Plaza(round((random.random()*self.Parking.plazasTurismo+1-1)),Vehiculo,round(random.randrange(100000,600000)),True)
             Vehiculo.Plaza=plaza

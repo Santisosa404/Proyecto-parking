@@ -1,6 +1,6 @@
-from src.Models import MovRed
-from src.Models.Motocicleta import Motocicleta
-from src.Models.Turismo import Turismo
+from proyecto_parking.src.Models import MovRed
+from proyecto_parking.src.Models.Motocicleta import Motocicleta
+from proyecto_parking.src.Models.Turismo import Turismo
 import locale
 locale.setlocale(locale.LC_ALL, 'es-ES')
 class Parking():
