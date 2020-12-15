@@ -1,22 +1,20 @@
-from proyecto_parking.src.Models import MovRed
-from proyecto_parking.src.Models.Motocicleta import Motocicleta
-from proyecto_parking.src.Models.Turismo import Turismo
+
 import locale
 locale.setlocale(locale.LC_ALL, 'es-ES')
 class Parking():
-    def __init__(self,listaVehiculos,plazasTotales):
-        self._listaVehiculos=listaVehiculos
+    def __init__(self,dicVehiculos,plazasTotales):
+        self._dicVehiculos=dicVehiculos
         self._plazasTotales=plazasTotales
-        self._plazasActuales= len(listaVehiculos)
+        self._plazasActuales= len(dicVehiculos.keys())
         self._plazasTurismo= round((self.plazasTotales*70)/100)
         self._plazasMotocicletas= round((self.plazasTotales*15)/100)
         self._plazasMovRed= round((self.plazasTotales*15)/100)
     @property
-    def listaVehiculos(self):
-        return self._listaVehiculos
-    @listaVehiculos.setter
-    def listaVehiculos(self,listaVehiculos):
-        self._listaVehiculos=listaVehiculos
+    def dicVehiculos(self):
+        return self._dicVehiculos
+    @dicVehiculos.setter
+    def dicVehiculos(self,dicVehiculos):
+        self._dicVehiculos=dicVehiculos
     @property
     def plazasTotales(self):
         return self._plazasTotales
@@ -51,23 +49,3 @@ class Parking():
     def __str__(self):
             return f'El parking tiene {self._plazasTotales} plazas totales de las cuales:\n' \
                f'{self._plazasTurismo} plazas son para turismos.\n{self._plazasMotocicletas} plazas son para Motocicletas.\n{self._plazasMovRed} plazas son para Movilidad Reducida'
-
-    def generarTicket(self,Vehiculo):
-        print("********** Impriminedo Ticket **********\n\n")
-        print(f'El vehiculo con matricula ${Vehiculo.matricula}\n'
-              f'Ingresó el {Vehiculo.fechaLlegada.strftime("%A %d %B %Y %I:%M")} en la plaza {Vehiculo.Plaza.numPlaza}\n'
-              f'Su pin de recogida es: {Vehiculo.Plaza.pin}\nTenga un buen dia\n')
-
-    def actualizar(self):
-        turismo,moto,mov = 0,0,0
-        for i in self.listaVehiculos:
-            if type(i) == Turismo:
-                turismo +=1
-            elif type(i) == Motocicleta:
-                moto +=1
-            elif type(i) == MovRed:
-                mov+=1
-        self._plazasActuales = len(self.listaVehiculos)
-        self._plazasTurismo -=turismo
-        self._plazasMotocicletas -=moto
-        self._plazasMovRed -=mov

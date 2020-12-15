@@ -1,6 +1,6 @@
 class Plaza():
-    def __init__(self,numPLaza,Vehiculo,pin,ocupada):
-        self._numPlaza=numPLaza
+    def __init__(self,numPlaza,Vehiculo,pin,ocupada):
+        self._numPlaza=numPlaza
         self._Vehiculo=Vehiculo
         self._pin=pin
         self._ocupada=ocupada
@@ -9,8 +9,8 @@ class Plaza():
     def numPlaza(self):
         return self._numPlaza
     @numPlaza.setter
-    def numPlaza(self,numPLaza):
-        self._numPLaza=numPLaza
+    def numPlaza(self,numPlaza):
+        self._numPlaza=numPlaza
     @property
     def Vehiculo(self):
         return self._Vehiculo
