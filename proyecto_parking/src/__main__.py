@@ -43,9 +43,9 @@ dicTicket = dict()
 # pickle.dump(dicVehiculos,pickle_Vehiculos)
 # pickle_Vehiculos.close()
 
-# pickle_Plazas = open("./pickleData/PlazasDB","wb")
-# pickle.dump(dicPlazas,pickle_Plazas)
-# pickle_Plazas.close()
+pickle_Plazas = open("./pickleData/PlazasDB","wb")
+pickle.dump(dicPlazas,pickle_Plazas)
+pickle_Plazas.close()
 
 
 p1 = Parking(dicVehiculos,plazasParking)

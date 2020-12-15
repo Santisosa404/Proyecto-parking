@@ -9,9 +9,9 @@ class PlazaRepositorio():
 
     def buscarPorNumPlaza(self,numPlaza):
         print("Numero de la plaza en el buscar")
+        print(self.plazasDB)
         print(numPlaza)
         stNum=str(numPlaza)
-        print(self.plazasDB)
         return self.plazasDB[stNum]
 
     def agregarPlaza(self,dicPlaza):
@@ -21,3 +21,6 @@ class PlazaRepositorio():
         pickle_in.close()
         print(dicPlaza)
     #Repasar los metodos de las plazas y la key que usa y no se guarda la plaza
+
+c = PlazaRepositorio()
+print(c.buscarPorNumPlaza(77))

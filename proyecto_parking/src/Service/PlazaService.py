@@ -19,7 +19,8 @@ class PlazaService():
             return None
 
     def agregarPlaza(self,plaza):
-        self.dicPlazas[plaza.numPlaza]=plaza
+        strNum=str(plaza.numPlaza)
+        self.dicPlazas[strNum]=plaza
         print("agregar plaza dicPlazas")
         print(self.dicPlazas)
         return self.plazaRepositorio.agregarPlaza(self.dicPlazas)

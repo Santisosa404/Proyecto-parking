@@ -18,4 +18,4 @@ class VehiculoService():
 
     def agregarVehiculo(self,Vehiculo):
         self.dicVehiculo[Vehiculo.matricula] =Vehiculo
-        self.vehiculoRepositorio.agregarVehiculo(self.dicVehiculo)
+        return self.vehiculoRepositorio.agregarVehiculo(self.dicVehiculo)
