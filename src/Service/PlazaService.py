@@ -13,6 +13,12 @@ class PlazaService():
 
     def buscarPorPlazaVerificandoPin(self,pin,numPlaza):
         plaza= self.plazaRepositorio.buscarPorNumPlaza(numPlaza)
+        print("Pin plaza buscada en plaza service")
+        print(plaza.pin)
+        print(type(plaza.pin))
+        print("Pin pasado por atributo")
+        print(pin)
+        print(type(pin))
         if plaza.pin == pin:
             return plaza
         else:
@@ -21,6 +27,4 @@ class PlazaService():
     def agregarPlaza(self,plaza):
         strNum=str(plaza.numPlaza)
         self.dicPlazas[strNum]=plaza
-        print("agregar plaza dicPlazas")
-        print(self.dicPlazas)
         return self.plazaRepositorio.agregarPlaza(self.dicPlazas)

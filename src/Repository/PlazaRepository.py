@@ -9,16 +9,13 @@ class PlazaRepositorio():
 
     def buscarPorNumPlaza(self,numPlaza):
         datos = pickle.load(self.plazasDB)
-        print("Numero de la plaza en el buscar datos")
-        print(datos)
-        print(numPlaza)
         stNum=str(numPlaza)
         return datos[stNum]
 
     def agregarPlaza(self,dicPlaza):
-        print("Plaza repositorio dic plaza:")
+        self.plazasDB.close()
         pickle_in = open("./pickleData/PlazasDB","wb")
         pickle.dump(dicPlaza,pickle_in)
         pickle_in.close()
-        print(dicPlaza)
+        self._plazasDB = open("./pickleData/PlazasDB","rb")
     #Repasar los metodos de las plazas y la key que usa y no se guarda la plaza

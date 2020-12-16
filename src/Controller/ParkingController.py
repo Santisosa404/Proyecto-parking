@@ -55,6 +55,12 @@ class ParkingController():
         else:
             return print('El vehiculo no se ha podido depositar\n')
 
+    def depositarVehiculoAbonado(self,Abonado):
+        Abonado.Plaza.ocupada=True
+        Abonado.Vehiculo.Plaza=Abonado.Plaza
+        Abonado.Vehiculo.fechaLlegada=datetime.now()
+        return print(f"El vehiculo ha sido depositado correctamente.\nTenga un buen dia {Abonado.nombre}")
+
     def asignarPlaza(self,Vehiculo):
         parking=self.parkingService.parking
         self.parkingService.actualizar()
@@ -82,24 +88,20 @@ class ParkingController():
                 return True
         else:
             return False
-    # Matricula numPlaza Pin
-    #Busco por matricula el coche y compruebo que el coche es el mismo que le que tiene la plaza y que el pin es el correcto
     def retirarVehiculo(self,matricula,numPlaza,pin):
         vehiculo =self.vehiculoService.buscarPorMatricula(matricula)
         plaza = self.plazaService.buscarPorPlazaVerificandoPin(pin,numPlaza)
-        print("Datos del vehiculo")
-        print(vehiculo.matricula)
-        print("Pin de la plaza que tiene el vehiculo buscado")
         print(vehiculo.Plaza.pin)
         if plaza.__eq__(vehiculo.Plaza):
             vehiculo.fechaSalida=datetime.now()
             vehiculo.Plaza=None
-            print("Impro dentro del if la plaza del vehiculo")
-            print(plaza.Vehiculo)
             plaza.Vehiculo=None
             plaza.ocupada=False
-            print("Casi termino")
             return self.ticketService.generarTicketSalida(vehiculo)
         else:
             return None
 
+    def retirarVehiculoAbonado(self,Abonado):
+        Abonado.Vehiculo.Plaza =None
+        Abonado.Vehiculo.fechaSalida=datetime.now()
+        return print("El vehiculo ha sido retirado correctamente")

@@ -8,7 +8,9 @@ class TicketRepositorio():
         return self._ticketDB
 
     def agregarTicket(self,dicTicket):
+        self.ticketDB.close()
         pickle_in = open("./pickleData/TicketDB","wb")
         pickle.dump(dicTicket,pickle_in)
         pickle_in.close()
+        self._ticketDB = open("./pickleData/TicketDB","rb")
 

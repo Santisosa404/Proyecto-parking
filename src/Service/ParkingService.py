@@ -4,7 +4,7 @@ from src.Models.Ticket import Ticket
 from src.Models.Turismo import Turismo
 
 class Parkingservice():
-    def __init__(self,parking):
+    def __init__(self,parking=None):
         self._parking=parking
 
     @property
@@ -14,13 +14,6 @@ class Parkingservice():
     def parking(self,parking):
         self._parking=parking
 
-    def generarPago(self,Vehiculo):
-        if type(Vehiculo) == Turismo:
-            return (Vehiculo.fechaLlegada.minute-Vehiculo.fechaSalida.minute)*0.12
-        elif type(Vehiculo) == Motocicleta:
-            return (Vehiculo.fechaLlegada.minute-Vehiculo.fechaSalida.minute)*0.08
-        elif type(Vehiculo) == MovRed:
-            return (Vehiculo.fechaLlegada.minute-Vehiculo.fechaSalida.minute)*0.10
 
     def actualizar(self):
         turismo,moto,mov = 0,0,0
