@@ -14,14 +14,14 @@ class TicketServicio():
         return self._dicTicket
 
     def generarTicket(self,Vehiculo):
-         ticket = Ticket(Vehiculo)
+         ticket = Ticket(Vehiculo,True)
          self.dicTicket[Vehiculo.matricula]=ticket
          self.ticketRepositorio.agregarTicket(self.dicTicket)
          print("********** Impriminedo Ticket **********\n\n")
          print(ticket)
 
     def generarTicketSalida(self,Vehiculo):
-        ticket = Ticket(Vehiculo,True)
+        ticket = Ticket(Vehiculo,False)
         self.dicTicket[Vehiculo.matricula]= ticket
         self.ticketRepositorio.agregarTicket(self.dicTicket)
         print("********** Impriminedo Ticket **********\n\n")

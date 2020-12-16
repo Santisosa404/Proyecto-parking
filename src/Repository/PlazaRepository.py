@@ -1,18 +1,19 @@
 import pickle
 class PlazaRepositorio():
     def __init__(self, plazasDB=open("./pickleData/PlazasDB","rb")):
-        self._plazasDB=pickle.load(plazasDB)
+        self._plazasDB=plazasDB
 
     @property
     def plazasDB(self):
         return self._plazasDB
 
     def buscarPorNumPlaza(self,numPlaza):
-        print("Numero de la plaza en el buscar")
-        print(self.plazasDB)
+        datos = pickle.load(self.plazasDB)
+        print("Numero de la plaza en el buscar datos")
+        print(datos)
         print(numPlaza)
         stNum=str(numPlaza)
-        return self.plazasDB[stNum]
+        return datos[stNum]
 
     def agregarPlaza(self,dicPlaza):
         print("Plaza repositorio dic plaza:")

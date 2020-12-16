@@ -2,15 +2,16 @@ import pickle
 
 class VehiculoRepositorio():
     def __init__(self,vehiculosDB= open("./pickleData/VehiculosDB",'rb')):
-        self._vehiculosDB=pickle.load(vehiculosDB)
+        self._vehiculosDB=vehiculosDB
 
     @property
     def vehiculosDB(self):
         return self._vehiculosDB
 
     def buscarPorMatricula(self,matricula):
+        datos=pickle.load(self.vehiculosDB)
         try:
-            return self.vehiculosDB[matricula]
+            return datos[matricula]
         except:
             return None
 

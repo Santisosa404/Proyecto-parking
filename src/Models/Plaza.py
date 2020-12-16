@@ -29,3 +29,6 @@ class Plaza():
     @ocupada.setter
     def ocupada(self,ocupada):
         self._ocupada=ocupada
+
+    def __eq__(self, other):
+        return self.pin == other.pin

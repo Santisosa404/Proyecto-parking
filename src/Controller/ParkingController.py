@@ -61,18 +61,21 @@ class ParkingController():
         if parking.plazasActuales < parking.plazasTotales:
             if type(Vehiculo)== Turismo:
                 plaza = Plaza(round((random.random()*parking.plazasTurismo+1-1)),Vehiculo,round(random.randrange(100000,600000)),True)
+                plaza.Vehiculo=Vehiculo
                 Vehiculo.Plaza=plaza
                 Vehiculo.fechaLlegada= datetime.now()
                 self.plazaService.agregarPlaza(plaza)
                 return True
             elif type(Vehiculo) == MovRed:
                 plaza = Plaza(round((random.random()*parking.plazasTurismo+1-1)),Vehiculo,round(random.randrange(100000,600000)),True)
+                plaza.Vehiculo=Vehiculo
                 Vehiculo.Plaza=plaza
                 Vehiculo.fechaLlegada= datetime.now()
                 self.plazaService.agregarPlaza(plaza)
                 return True
             elif type(Vehiculo) == Motocicleta:
                 plaza = Plaza(round((random.random()*parking.plazasTurismo+1-1)),Vehiculo,round(random.randrange(100000,600000)),True)
+                plaza.Vehiculo=Vehiculo
                 Vehiculo.Plaza=plaza
                 Vehiculo.fechaLlegada= datetime.now()
                 self.plazaService.agregarPlaza(plaza)
@@ -84,11 +87,18 @@ class ParkingController():
     def retirarVehiculo(self,matricula,numPlaza,pin):
         vehiculo =self.vehiculoService.buscarPorMatricula(matricula)
         plaza = self.plazaService.buscarPorPlazaVerificandoPin(pin,numPlaza)
-        if  plaza== vehiculo.Plaza:
+        print("Datos del vehiculo")
+        print(vehiculo.matricula)
+        print("Pin de la plaza que tiene el vehiculo buscado")
+        print(vehiculo.Plaza.pin)
+        if plaza.__eq__(vehiculo.Plaza):
             vehiculo.fechaSalida=datetime.now()
             vehiculo.Plaza=None
+            print("Impro dentro del if la plaza del vehiculo")
+            print(plaza.Vehiculo)
             plaza.Vehiculo=None
             plaza.ocupada=False
+            print("Casi termino")
             return self.ticketService.generarTicketSalida(vehiculo)
         else:
             return None
