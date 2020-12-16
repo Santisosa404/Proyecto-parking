@@ -2,6 +2,7 @@ from datetime import datetime
 
 from src.Controller.ParkingController import ParkingController
 from src.Models.Abonado import Abonado
+from src.Models.Admin import Admin
 from src.Models.MovRed import MovRed
 from src.Models.Motocicleta import Motocicleta
 from src.Models.Parking import Parking
@@ -10,10 +11,12 @@ from src.Models.Turismo import Turismo
 import pickle
 
 from src.Repository.AbonadoRepository import AbonadoRepositorio
+from src.Repository.AdminRepository import AdminRepositorio
 from src.Repository.PlazaRepository import PlazaRepositorio
 from src.Repository.TicketRepository import TicketRepositorio
 from src.Repository.VehiculoRepository import VehiculoRepositorio
 from src.Service.AbonadoService import AbonadoServicio
+from src.Service.AdminService import AdminServicio
 from src.Service.ParkingService import Parkingservice
 from src.Service.PlazaService import PlazaService
 from src.Service.TicketService import TicketServicio
@@ -29,12 +32,18 @@ pla1.Vehiculo=v1
 dicVehiculos =dict()
 dicVehiculos[v1.matricula]=v1
 abo = Abonado("Santiago","Sosa Díaz","77873839W",v1,pla1,"1234 1234 1234 1234","Anual","sosa.disan20@triana.salesianos.edu",datetime.now(),datetime(2021,12,16))
-
+admin = Admin("Luismi","MiClave123")
 dicPlazas = dict()
 dicPlazas['77'] = pla1
 dicTicket = dict()
 dicAbonados=dict()
 dicAbonados[abo.dni]=abo
+dicAdmin = dict()
+dicAdmin[str(admin.clave)]=admin
+
+pickle_Admin = open("./pickleData/AdminDB","wb")
+pickle.dump(dicPlazas,pickle_Admin)
+pickle_Admin.close()
 
 pickle_abonado=open("./pickleData/AbonadosDB","wb")
 pickle.dump(dicAbonados,pickle_abonado)
@@ -51,6 +60,8 @@ pickle_Vehiculos.close()
 pickle_Plazas = open("./pickleData/PlazasDB","wb")
 pickle.dump(dicPlazas,pickle_Plazas)
 pickle_Plazas.close()
+
+
 
 # pickle_in=open("./pickleData/VehiculosDB","rb")
 # Vehiculos_in=pickle.load(pickle_in)
@@ -70,6 +81,9 @@ ticketServicio=TicketServicio(ticketRepositorio,dicTicket)
 
 abonadoRepositorio = AbonadoRepositorio()
 abonadoServicio=AbonadoServicio(abonadoRepositorio,dicAbonados)
+
+adminRepositorio= AdminRepositorio()
+adminServicio=AdminServicio(adminRepositorio,dicAdmin)
 
 parkingController = ParkingController(parkingServicio,vehiculoServicio,plazaServicio,ticketServicio)
 op=-1
@@ -123,4 +137,28 @@ while op!='0':
         else:
             print("Crendenciales incorrectas")
     elif op=='3':
-        print('Ingrese la clave de acceso')
+        nombre=input('Para entrar la zona de la administracion debera loguearse.\n'
+                     'Introduzca su nombre\n ')
+        clave=input('Introduzca su clave de acceso: ')
+        if adminServicio.comprobarClave(nombre,clave) :
+            adminServicio.buscarPorClave(clave)
+            print(f"Bienvenido {admin.nombre}")
+            op3=-1
+            while op3!=0:
+                op3=input("Pulse 1 para ver el estado del parking\n"
+                          "Pulse 2 para la facturacion entre fechas\n"
+                          "Pulse 3 para consultar los Abonados\n"
+                          "Pulse 4 para gestionar los Abonos\n"
+                          "Pulse 5 para ver la caducidad de los Abonos ")
+                if op3=='1':
+                    print("TODO")
+                elif op3=='2':
+                    print("TODO")
+                elif op3=='3':
+                    print("TODO")
+                elif op3=='4':
+                    print("TODO")
+                elif op3=='5':
+                    print("TODO")
+        else:
+            print("Credenciales incorrectas")

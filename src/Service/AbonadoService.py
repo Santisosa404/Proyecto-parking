@@ -13,9 +13,9 @@ class AbonadoServicio():
     def comprobarAbonado(self,dni,matricula):
         abonado =self.abonadoRepositorio.buscarAbonadoDni(dni)
         if abonado.Vehiculo.matricula == matricula:
-            return abonado
+            return True
         else:
-            return None
+            return False
 
     def buscarPorDni(self,dni):
         return self.abonadoRepositorio.buscarAbonadoDni(dni)

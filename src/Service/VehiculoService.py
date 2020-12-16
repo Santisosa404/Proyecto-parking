@@ -9,10 +9,6 @@ class VehiculoService():
     def dicVehiculo(self):
         return self._dicVehiculo
 
-    @vehiculoRepositorio.setter
-    def vehiculoRepositorio(self,vehiculoRepositorio):
-        self.vehiculoRepositorio = vehiculoRepositorio
-
     def buscarPorMatricula(self,matricula):
        return self.vehiculoRepositorio.buscarPorMatricula(matricula)
 
