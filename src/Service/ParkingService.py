@@ -1,6 +1,5 @@
 from src.Models import MovRed
 from src.Models.Motocicleta import Motocicleta
-from src.Models.Ticket import Ticket
 from src.Models.Turismo import Turismo
 
 class Parkingservice():

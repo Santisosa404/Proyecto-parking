@@ -1,6 +1,6 @@
 import pickle
 class AdminRepositorio():
-    def __init__(self,adminDB=open("./pickleData/AdminDB","rb")):
+    def __init__(self,adminDB=open("./pickleData/AdminDB", "rb")):
         self._adminDB=adminDB
 
     @property
@@ -8,5 +8,12 @@ class AdminRepositorio():
         return self._adminDB
 
     def buscarPorClave(self,clave):
-        datos=pickle.load(self.adminDB)
-        return datos[str(clave)]
+        try:
+            try:
+                datos=pickle.load(self._adminDB)
+                return datos[str(clave)]
+            except EOFError:
+                datos = pickle.load(open("./pickleData/AdminDB", "rb"))
+                return datos[str(clave)]
+        except KeyError:
+            return None

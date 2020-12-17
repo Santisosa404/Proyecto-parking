@@ -2,12 +2,10 @@ from src.Models.Motocicleta import Motocicleta
 from src.Models.MovRed import MovRed
 from src.Models.Plaza import Plaza
 from src.Models.Turismo import Turismo
-from src.Service.PlazaService import PlazaService
 import random
 from datetime import  datetime
 
 class ParkingController():
-
     def __init__(self,parkingService,vehiculoService,plazaService,ticketService):
         self._parkingService=parkingService
         self._vehiculoService=vehiculoService
@@ -42,7 +40,7 @@ class ParkingController():
     def estadoParking(self):
         p=self.parkingService.parking
         self.parkingService.actualizar()
-        return  f'Quedan {p.plazasTotales-p.plazasActuales} plazas.\n' \
+        return  f'Quedan {p.plazasActuales} plazas.\n' \
                 f'{p.plazasTurismo} plazas para Turismos.\n' \
                 f'{p.plazasMotocicletas} plazas para motocicletas.\n' \
                 f'{p.plazasMovRed} plazas para Movilidad Reducida.'

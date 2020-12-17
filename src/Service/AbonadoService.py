@@ -19,3 +19,6 @@ class AbonadoServicio():
 
     def buscarPorDni(self,dni):
         return self.abonadoRepositorio.buscarAbonadoDni(dni)
+
+    def buscarAbonados(self):
+        return self.abonadoRepositorio.buscarAbonados()

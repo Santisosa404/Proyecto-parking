@@ -1,7 +1,6 @@
 from src.Models.Motocicleta import Motocicleta
 from src.Models.MovRed import MovRed
 from src.Models.Turismo import Turismo
-from src.Service import ParkingService
 
 class Ticket():
     def __init__(self,Vehiculo,pagado=False):
@@ -29,12 +28,12 @@ class Ticket():
         else:
             return f'El vehiculo con matricula {self.Vehiculo.matricula}\n'\
                    f'Ingresó el {self.Vehiculo.fechaLlegada.strftime("%A %d %B %Y %I:%M")}'\
-                   f'\nLa salida del vehiculo fue el {self.Vehiculo.fechaLlegada.strftime("%A %d %B %Y %I:%M")}\nEl coste total de estancia es de {generarPago(self.Vehiculo)} €\n'
+                   f'\nLa salida del vehiculo fue el {self.Vehiculo.fechaLlegada.strftime("%A %d %B %Y %I:%M")}\nEl coste total de estancia es de {self.generarPago(self.Vehiculo)} €\n'
 
-def generarPago(Vehiculo):
-        if type(Vehiculo) == Turismo:
-            return (Vehiculo.fechaLlegada.minute-Vehiculo.fechaSalida.minute)*0.12
-        elif type(Vehiculo) == Motocicleta:
-            return (Vehiculo.fechaLlegada.minute-Vehiculo.fechaSalida.minute)*0.08
-        elif type(Vehiculo) == MovRed:
-            return (Vehiculo.fechaLlegada.minute-Vehiculo.fechaSalida.minute)*0.10
+    def generarPago(self,Vehiculo):
+            if type(Vehiculo) == Turismo:
+                return (Vehiculo.fechaSalida.minute-Vehiculo.fechaLlegada.minute)*0.12
+            elif type(Vehiculo) == Motocicleta:
+                return (Vehiculo.fechaSalida.minute-Vehiculo.fechaLlegada.minute)*0.08
+            elif type(Vehiculo) == MovRed:
+                return (Vehiculo.fechaSalida.minute-Vehiculo.fechaLlegada.minute)*0.10

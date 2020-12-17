@@ -12,7 +12,8 @@ class AdminServicio():
 
     def comprobarClave(self,nombre,clave):
         admin=self.adminRepositorio.buscarPorClave(clave)
-        if admin.nombre == nombre:
+
+        if  admin != None and admin.nombre == nombre:
             return True
         else:
             return False

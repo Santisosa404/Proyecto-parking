@@ -14,3 +14,12 @@ class TicketRepositorio():
         pickle_in.close()
         self._ticketDB = open("./pickleData/TicketDB","rb")
 
+    def buscarTicketPagados(self):
+        datos = pickle.load(self.ticketDB)
+        dicPagados=dict()
+        for i in datos.values():
+            if i.pagado:
+                dicPagados[i.Vehiculo.matricula]=i
+        return dicPagados
+
+

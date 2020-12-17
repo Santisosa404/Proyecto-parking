@@ -13,3 +13,7 @@ class AbonadoRepositorio():
         except EOFError:
             datos=pickle.load(open("./pickleData/AbonadosDB","rb"))
         return datos[dni]
+
+    def buscarAbonados(self):
+        datos=pickle.load(self.abonadosDB)
+        return datos
