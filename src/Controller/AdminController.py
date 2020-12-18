@@ -1,4 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+
+from src.Models.Abonado import Abonado
 
 
 class AdminControler():
@@ -36,6 +38,23 @@ class AdminControler():
 
     def imprimirAbonados(self):
         dicAbonados=self.abonadoService.buscarAbonados()
+        print("Imprimiendo Abonados")
         for i in dicAbonados.values():
             print(i)
+    def darDeAlta(self,nombre,apellidos,dni,email,numTarjeta,VehiculoAbonado,PlazaAbonado,tipoAbono):
+        hoy =datetime.now()
+        if tipoAbono.lower()=='Mensual'.lower():
+            hoy = hoy.replace(month=+1)
+            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),hoy)
+            print(nuevoAbonado.fechaCancelacion)
+        elif tipoAbono.lower()== 'Trimestral'.lower():
+            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now().replace(month=+3),datetime.now())
+            print(nuevoAbonado.fechaCancelacion)
+        elif tipoAbono.lower() == 'Semestral'.lower():
+            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),datetime.now().replace(month=+7))
+            print(nuevoAbonado.fechaCancelacion)
+        elif tipoAbono.lower() == 'Anual'.lower():
+            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),datetime.now().replace(year=+1))
+            print(nuevoAbonado.fechaCancelacion)
+        return 'hola'
 

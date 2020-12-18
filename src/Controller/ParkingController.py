@@ -53,12 +53,14 @@ class ParkingController():
         else:
             return print('El vehiculo no se ha podido depositar\n')
 
-    def depositarVehiculoAbonado(self,Abonado):
-        Abonado.Plaza.ocupada=True
-        Abonado.Vehiculo.Plaza=Abonado.Plaza
-        Abonado.Vehiculo.fechaLlegada=datetime.now()
-        return print(f"El vehiculo ha sido depositado correctamente.\nTenga un buen dia {Abonado.nombre}")
-
+    def depositarVehiculoAbonado(self,Abonado,pin):
+        if int(Abonado.Plaza.pin) == int(pin):
+            Abonado.Plaza.ocupada=True
+            Abonado.Vehiculo.Plaza=Abonado.Plaza
+            Abonado.Vehiculo.fechaLlegada=datetime.now()
+            return print(f"El vehiculo ha sido depositado correctamente.\nTenga un buen dia {Abonado.nombre}")
+        else:
+            print("Credenciales incorrectas")
     def asignarPlaza(self,Vehiculo):
         parking=self.parkingService.parking
         self.parkingService.actualizar()

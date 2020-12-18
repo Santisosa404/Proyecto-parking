@@ -67,16 +67,16 @@ class Abonado():
         self._fechaActivacion=fechaActivacion
     @property
     def fechaCancelacion(self):
-        return self._fechaActivacion
-    @fechaActivacion.setter
-    def fechaActivacion(self,fechaActivacion):
-        self._fechaActivacion=fechaActivacion
+        return self._fechaCancelacion
+    @fechaCancelacion.setter
+    def fechaCancelacion(self,fechaCancelacion):
+        self._fechaCancelacion=fechaCancelacion
 
     def __str__(self):
         return f'Nombre completo: {self.nombre} {self.apellidos}.\n' \
                f'Dni: {self.dni}\n' \
-               f'Numero de plaza: {self.Plaza.numPlaza}' \
+               f'Numero de plaza: {self.Plaza.numPlaza} ' \
                f'Tipo de abono: {self.tipoAbono}\n' \
-               f'Fecha de activacion: {self.fechaActivacion}\n' \
-               f'Fecha cancelacion: {self.fechaCancelacion}\n'
+               f'Fecha de activacion: {self.fechaActivacion.strftime("%A %d %B %Y %I:%M")}\n' \
+               f'Fecha cancelacion: {self.fechaCancelacion.strftime("%A %d %B %Y %I:%M")}\n'
 

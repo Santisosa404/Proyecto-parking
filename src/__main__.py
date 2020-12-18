@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 
 from src.Controller.AdminController import AdminControler
@@ -12,6 +13,7 @@ from src.Models.Ticket import Ticket
 from src.Models.Turismo import Turismo
 import pickle
 
+from src.Models.Vehiculo import Vehiculo
 from src.Repository.AbonadoRepository import AbonadoRepositorio
 from src.Repository.AdminRepository import AdminRepositorio
 from src.Repository.PlazaRepository import PlazaRepositorio
@@ -134,7 +136,9 @@ while op != '0':
                             "Pulse 2 para retirar su vehiculo")
                 print(op2)
                 if op2 == '1':
-                    parkingController.depositarVehiculoAbonado(abonadoActual)
+                    pin=input('Para retirar el vehiculo será requerido el pin\n'
+                              'Pin: ')
+                    parkingController.depositarVehiculoAbonado(abonadoActual,pin)
                 elif op2 == '2':
                     parkingController.retirarVehiculoAbonado(abonadoActual)
 
@@ -148,7 +152,7 @@ while op != '0':
             adminServicio.buscarPorClave(clave)
             print(f"\nBienvenido {admin.nombre}")
             op3 = -1
-            while op3 != 0:
+            while op3 != '0':
                 op3 = input("Pulse 1 para ver el estado del parking\n"
                             "Pulse 2 para la facturacion entre fechas\n"
                             "Pulse 3 para consultar los Abonados\n"
@@ -167,7 +171,39 @@ while op != '0':
                 elif op3 == '3':
                     adminController.imprimirAbonados()
                 elif op3 == '4':
-                    print("TODO")
+                    op4=-1
+                    while op4 !='0':
+                        op4 =input("Pulse 1 para dar de Alta a un Abonado\n"
+                              "Pulse 2 para modificar un Abonado\n"
+                              "Pulse 3 para dar de baja a un Abonado")
+                        if op4 =='1':
+                            print('Para dar de alta necesitaré sus datos personales')
+                            nombre = input('Nombre del Abonado: ')
+                            apellidos=input('Apellidos del Abonado: ')
+                            dni = input('Dni: ')
+                            email = input('Email: ')
+                            numTarjeta=input('Numero de tarjeta: ')
+                            tipoVehiculo=input('Tipo de vehiculo a estacionar: ')
+                            matricula = input('Matricula del turismo: ')
+                            pin = int(input('Pin del abonado: '))
+                            tipoAbono=input('Tipo Abono: ')
+
+                            if tipoVehiculo.lower() == 'turismo':
+                                VehiculoAbonado = Turismo(matricula)
+                            elif tipoVehiculo.lower() == 'motocicleta':
+                                VehiculoAbonado = Motocicleta(matricula)
+                            elif tipoVehiculo.lower() == 'movilidad reducida':
+                                VehiculoAbonado = MovRed(matricula)
+
+                            PlazaAbonado=Plaza(random.randint(1,p1.plazasTotales), VehiculoAbonado, pin, True)
+                            VehiculoAbonado.Plaza=PlazaAbonado
+                            adminController.darDeAlta(nombre,apellidos,dni,email,numTarjeta,VehiculoAbonado,PlazaAbonado,tipoAbono)
+                        elif op4=='2':
+                            print('')
+                        elif op4=='3':
+                            print('')
+                        else:
+                            print("Opción incorrecta")
                 elif op3 == '5':
                     print("TODO")
         else:
