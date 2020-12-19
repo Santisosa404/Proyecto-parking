@@ -1,7 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from src.Models.Abonado import Abonado
-
 
 class AdminControler():
     def __init__(self, ticketService,abonadoService):
@@ -45,16 +44,48 @@ class AdminControler():
         hoy =datetime.now()
         if tipoAbono.lower()=='Mensual'.lower():
             hoy = hoy.replace(month=+1)
-            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),hoy)
-            print(nuevoAbonado.fechaCancelacion)
+            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),datetime.now().replace(month=datetime.now().month+1))
+            self.abonadoService.agregarAbonado(nuevoAbonado)
         elif tipoAbono.lower()== 'Trimestral'.lower():
-            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now().replace(month=+3),datetime.now())
-            print(nuevoAbonado.fechaCancelacion)
+            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),datetime.now().replace(month=datetime.now().month+3))
+            self.abonadoService.agregarAbonado(nuevoAbonado)
         elif tipoAbono.lower() == 'Semestral'.lower():
-            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),datetime.now().replace(month=+7))
-            print(nuevoAbonado.fechaCancelacion)
+            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),datetime.now().replace(month=datetime.now().month+7))
+            self.abonadoService.agregarAbonado(nuevoAbonado)
         elif tipoAbono.lower() == 'Anual'.lower():
-            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),datetime.now().replace(year=+1))
-            print(nuevoAbonado.fechaCancelacion)
-        return 'hola'
+            nuevoAbonado = Abonado(nombre,apellidos,dni,VehiculoAbonado,PlazaAbonado,numTarjeta,tipoAbono,email,datetime.now(),datetime.now().replace(year=datetime.now().year+1))
+            self.abonadoService.agregarAbonado(nuevoAbonado)
+        return True
 
+    def modificarAbonado(self,abonadoMod,nombre,apellidos,correo,dni,dniOld):
+        abonadoMod.nombre = nombre
+        abonadoMod.apellidos = apellidos
+        abonadoMod.correo = correo
+        abonadoMod.dni = dni
+        self.abonadoService.editarAbonado(abonadoMod,dniOld)
+
+    def renovarCancelacion(self,abonado):
+        tipoAbono=abonado.tipoAbono
+        if tipoAbono.lower()=='Mensual'.lower():
+            abonado.fechaActivacion=datetime.now()
+            abonado.fechaCancelacion=datetime.now().replace(month=datetime.now().month+1)
+        elif tipoAbono.lower()== 'Trimestral'.lower():
+            abonado.fechaActivacion=datetime.now()
+            abonado.fechaCancelacion=datetime.now().replace(month=datetime.now().month+3)
+        elif tipoAbono.lower() == 'Semestral'.lower():
+            abonado.fechaActivacion=datetime.now()
+            abonado.fechaCancelacion=datetime.now().replace(month=datetime.now().month+7)
+        elif tipoAbono.lower() == 'Anual'.lower():
+            abonado.fechaActivacion=datetime.now()
+            abonado.fechaCancelacion=datetime.now().replace(year=datetime.now().year+1)
+
+        self.abonadoService.editarAbonado(abonado,abonado.dni)
+
+    def darDeBaja(self,abonadoBorrar):
+        self.abonadoService.eliminarAbonado(abonadoBorrar)
+
+    def imprimirConsulta(self,mes=None):
+        if mes == None:
+             self.abonadoService.imprimirDiezDias()
+        else:
+            self.abonadoService.imprimirPorMes(mes)

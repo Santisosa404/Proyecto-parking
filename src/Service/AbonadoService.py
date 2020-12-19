@@ -22,3 +22,27 @@ class AbonadoServicio():
 
     def buscarAbonados(self):
         return self.abonadoRepositorio.buscarAbonados()
+
+    def agregarAbonado(self,nuevoAbonado):
+        self.dicAbonado[nuevoAbonado.dni]=nuevoAbonado
+        return self.abonadoRepositorio.agregarAbonado(self.dicAbonado)
+
+    def editarAbonado(self,abonadoMod,dniOld):
+        self.dicAbonado[abonadoMod.dni]=self.dicAbonado.pop(dniOld)
+        self.abonadoRepositorio.agregarAbonado(self.dicAbonado)
+
+    def eliminarAbonado(self,abonadoBorrar):
+        self.dicAbonado.pop(abonadoBorrar.dni)
+        self.abonadoRepositorio.agregarAbonado(self.dicAbonado)
+
+    def imprimirPorMes(self,mes):
+        resultado = self.abonadoRepositorio.buscarCancelacionPorMes(mes)
+        print('Imprimiendo resultados')
+        for i in resultado:
+            print(i)
+
+    def imprimirDiezDias(self):
+        resultado = self.abonadoRepositorio.buscarCancelacionDiezDias()
+        print('Imprimiendo resultados')
+        for i in resultado:
+            print(i)

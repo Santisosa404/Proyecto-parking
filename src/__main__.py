@@ -13,7 +13,6 @@ from src.Models.Ticket import Ticket
 from src.Models.Turismo import Turismo
 import pickle
 
-from src.Models.Vehiculo import Vehiculo
 from src.Repository.AbonadoRepository import AbonadoRepositorio
 from src.Repository.AdminRepository import AdminRepositorio
 from src.Repository.PlazaRepository import PlazaRepositorio
@@ -27,27 +26,83 @@ from src.Service.TicketService import TicketServicio
 from src.Service.VehiculoService import VehiculoService
 
 plazasParking = int(input("Antes de comenzar, debo saber de cuantas plazas será el parking\n"))
+# Vehiculos
 
-v1 = Turismo('2323')
-m1 = Motocicleta('7777', datetime(2020, 1, 1), datetime.now())
-pla1 = Plaza(77, v1, 1234, True)
+v1 = Turismo('2323-CRY', datetime(2020, 12, 12))
+v2 = Turismo('1212-RKO', datetime(2020, 12, 13))
+v3 = Turismo('5344-AFK', datetime(2020, 12, 14), datetime.now())
+v4 = Turismo('3244-KFC', datetime(2020, 12, 15), datetime.now())
+
+m1 = Motocicleta('7777-GPU', datetime(2020, 12, 12))
+m2 = Motocicleta('8976-GTX', datetime(2020, 12, 13))
+m3 = Motocicleta('4676-RTX', datetime(2020, 12, 15), datetime.now())
+m4 = Motocicleta('2346-CPU', datetime(2020, 12, 14), datetime.now())
+
+mR1 = MovRed('3456-XDD', datetime(2020, 12, 12))
+mR2 = MovRed('7899-XDD', datetime(2020, 12, 13))
+mR3 = MovRed('9898-XDD', datetime(2020, 12, 14), datetime.now())
+mR4 = MovRed('9898-XDD', datetime(2020, 12, 15), datetime.now())
+
+# Plazas
+pla1 = Plaza(77, v1, 123456, True)
+pla2 = Plaza(78, v2, 654321, True)
+pla3 = Plaza(79, m1, 123456, True)
+pla4 = Plaza(80, m2, 654321, True)
+pla5 = Plaza(81, mR1, 123456, True)
+pla6 = Plaza(82, mR2, 654321, True)
+
 v1.Plaza = pla1
-pla1.Vehiculo = v1
-dicVehiculos = dict()
-dicVehiculos[v1.matricula] = v1
-abo = Abonado("Santiago", "Sosa Díaz", "77873839W", v1, pla1, "1234 1234 1234 1234", "Anual",
-              "sosa.disan20@triana.salesianos.edu", datetime.now(), datetime(2021, 12, 16))
+v2.Plaza = pla2
+m1.Plaza = pla3
+m2.Plaza = pla4
+mR1.Plaza = pla5
+mR2.Plaza = pla6
+
+# Tickets
+t1 = Ticket(v3, True)
+t2 = Ticket(v4, True)
+t3 = Ticket(m3, True)
+t4 = Ticket(m4, True)
+t5 = Ticket(mR3, True)
+t6 = Ticket(mR4, True)
+
+# Abonados
+
+ab1 = Abonado("Santiago", "Abonado 1", "77873839A", v1, pla1, "1234 1234 1234 1234", "Anual",
+              "abonado1@correo.com", datetime.now(), datetime.now().replace(year=datetime.now().year + 1))
+ab2 = Abonado("Santiago", "Abonado 2", "77873839B", v2, pla2, "1234 1234 1234 1234", "Mensual",
+              "abonado2@correo.com", datetime.now(), datetime.now().replace(month=+1))
+ab3 = Abonado("Santiago", "Abonado 3", "77873839C", m1, pla3, "1234 1234 1234 1234", "Mensual",
+              "abonado3@correo.com", datetime.now(), datetime.now().replace(month=+1))
+ab4 = Abonado("Santiago", "Abonado 4", "77873839D", m2, pla4, "1234 1234 1234 1234", "Anual",
+              "abonado4@correo.com", datetime.now(), datetime.now().replace(year=datetime.now().year + 1))
+ab5 = Abonado("Santiago", "Abonado 5", "77873839E", mR1, pla5, "1234 1234 1234 1234", "Semestral",
+              "abonado5@correo.com", datetime.now(), datetime.now().replace(month=+6))
+ab6 = Abonado("Santiago", "Abonado 6", "77873839F", mR2, pla6, "1234 1234 1234 1234", "Trimestral",
+              "abonado6@correo.com", datetime.now(), datetime.now().replace(month=+3))
+
 admin = Admin("Luismi", "MiClave123")
-t2 = Ticket(m1, True)
-dicPlazas = dict()
-dicPlazas['77'] = pla1
-dicTicket = dict()
-dicTicket[t2.Vehiculo.matricula] = t2
-dicAbonados = dict()
-dicAbonados[abo.dni] = abo
+
+dicVehiculos=dict()
+dicVehiculos = {v1.matricula: v1, v2.matricula: v2, v3.matricula: v3, v4.matricula: v4, m1.matricula: m1,
+                m2.matricula: m2, m3.matricula: m3, m4.matricula: m4, mR1.matricula: mR1, mR2.matricula: mR2,
+                mR3.matricula: mR3, mR4.matricula: mR4}
+
+dicPlazas=dict()
+dicPlazas = {str(pla1.numPlaza): pla1, str(pla2.numPlaza): pla2, str(pla3.numPlaza): pla3, str(pla4.numPlaza): pla4,
+             str(pla5.numPlaza): pla5, str(pla6.numPlaza): pla6}
+
+dicTicket=dict()
+dicTicket = {t1.Vehiculo.matricula: t1, t2.Vehiculo.matricula: t2, t3.Vehiculo.matricula: t3, t4.Vehiculo.matricula: t4,
+             t5.Vehiculo.matricula: t5, t6.Vehiculo.matricula: t6}
+
+dicAbonados=dict()
+dicAbonados = {ab1.dni: ab1, ab2.dni: ab2, ab3.dni: ab3, ab4.dni: ab4, ab5.dni: ab5, ab6.dni: ab6}
+
 dicAdmin = dict()
 dicAdmin[admin.clave] = admin
 
+# Carga a bases de datos
 pickle_Admin = open("./pickleData/AdminDB", "wb")
 pickle.dump(dicAdmin, pickle_Admin)
 pickle_Admin.close()
@@ -68,10 +123,6 @@ pickle_Plazas = open("./pickleData/PlazasDB", "wb")
 pickle.dump(dicPlazas, pickle_Plazas)
 pickle_Plazas.close()
 
-# pickle_in=open("./pickleData/VehiculosDB","rb")
-# Vehiculos_in=pickle.load(pickle_in)
-# print(Vehiculos_in.keys())
-
 p1 = Parking(dicVehiculos, plazasParking)
 parkingServicio = Parkingservice(p1)
 
@@ -91,7 +142,8 @@ adminRepositorio = AdminRepositorio()
 adminServicio = AdminServicio(adminRepositorio, dicAdmin)
 
 parkingController = ParkingController(parkingServicio, vehiculoServicio, plazaServicio, ticketServicio)
-adminController = AdminControler(ticketServicio,abonadoServicio)
+adminController = AdminControler(ticketServicio, abonadoServicio)
+
 op = -1
 
 while op != '0':
@@ -136,9 +188,9 @@ while op != '0':
                             "Pulse 2 para retirar su vehiculo")
                 print(op2)
                 if op2 == '1':
-                    pin=input('Para retirar el vehiculo será requerido el pin\n'
-                              'Pin: ')
-                    parkingController.depositarVehiculoAbonado(abonadoActual,pin)
+                    pin = input('Para retirar el vehiculo será requerido el pin\n'
+                                'Pin: ')
+                    parkingController.depositarVehiculoAbonado(abonadoActual, pin)
                 elif op2 == '2':
                     parkingController.retirarVehiculoAbonado(abonadoActual)
 
@@ -171,22 +223,22 @@ while op != '0':
                 elif op3 == '3':
                     adminController.imprimirAbonados()
                 elif op3 == '4':
-                    op4=-1
-                    while op4 !='0':
-                        op4 =input("Pulse 1 para dar de Alta a un Abonado\n"
-                              "Pulse 2 para modificar un Abonado\n"
-                              "Pulse 3 para dar de baja a un Abonado")
-                        if op4 =='1':
+                    op4 = -1
+                    while op4 != '0':
+                        op4 = input("Pulse 1 para dar de Alta a un Abonado\n"
+                                    "Pulse 2 para modificar un Abonado\n"
+                                    "Pulse 3 para dar de baja a un Abonado")
+                        if op4 == '1':
                             print('Para dar de alta necesitaré sus datos personales')
                             nombre = input('Nombre del Abonado: ')
-                            apellidos=input('Apellidos del Abonado: ')
+                            apellidos = input('Apellidos del Abonado: ')
                             dni = input('Dni: ')
                             email = input('Email: ')
-                            numTarjeta=input('Numero de tarjeta: ')
-                            tipoVehiculo=input('Tipo de vehiculo a estacionar: ')
+                            numTarjeta = input('Numero de tarjeta: ')
+                            tipoVehiculo = input('Tipo de vehiculo a estacionar: ')
                             matricula = input('Matricula del turismo: ')
                             pin = int(input('Pin del abonado: '))
-                            tipoAbono=input('Tipo Abono: ')
+                            tipoAbono = input('Tipo Abono: ')
 
                             if tipoVehiculo.lower() == 'turismo':
                                 VehiculoAbonado = Turismo(matricula)
@@ -195,18 +247,49 @@ while op != '0':
                             elif tipoVehiculo.lower() == 'movilidad reducida':
                                 VehiculoAbonado = MovRed(matricula)
 
-                            PlazaAbonado=Plaza(random.randint(1,p1.plazasTotales), VehiculoAbonado, pin, True)
-                            VehiculoAbonado.Plaza=PlazaAbonado
-                            adminController.darDeAlta(nombre,apellidos,dni,email,numTarjeta,VehiculoAbonado,PlazaAbonado,tipoAbono)
-                        elif op4=='2':
-                            print('')
-                        elif op4=='3':
-                            print('')
+                            PlazaAbonado = Plaza(random.randint(1, p1.plazasTotales), VehiculoAbonado, pin, True)
+                            VehiculoAbonado.Plaza = PlazaAbonado
+                            if adminController.darDeAlta(nombre, apellidos, dni, email, numTarjeta, VehiculoAbonado,
+                                                         PlazaAbonado, tipoAbono):
+                                print('Abonado dado de alta')
+                            else:
+                                print('No ha sido posible agregar el abonado')
+
+                        elif op4 == '2':
+                            dniOld = input('Indique el dni del Abonado a modificar')
+                            abonado = abonadoServicio.buscarPorDni(dniOld)
+                            op5 = input('Pulse 1 para cambiar los datos personales\n'
+                                        'Pulse 2 para renovar la fecha de cancelación')
+                            if op5 == '1':
+                                nombre = input('Nombre del Abonado: ')
+                                apellidos = input('Apellidos del Abonado: ')
+                                correo = input('Correo del Abonado: ')
+                                dni = input('Dni del Abonado: ')
+                                adminController.modificarAbonado(abonado, nombre, apellidos, correo, dni, dniOld)
+                            elif op5 == '2':
+                                print('El pago se cobrara en la tarjeta del abonado')
+                                adminController.renovarCancelacion(abonado)
+                                print('La fecha de cancelacion a sido correctamente renovada')
+                        elif op4 == '3':
+                            dniBorrar = input('Indique el dni del abonado a eliminar: ')
+                            abonadoBorrar = abonadoServicio.buscarPorDni(dniBorrar)
+                            op6 = input(f'El abonado {abonadoBorrar.nombre} {abonadoBorrar.apellidos} sera eliminado.\n'
+                                        f'Pulse 1 para confirmar la baja.\n'
+                                        f'Pulse cualquier otra tecla para cancelar')
+                            if op6 == '1':
+                                adminController.darDeBaja(abonadoBorrar)
+                            else:
+                                print('Operación cancelada')
                         else:
                             print("Opción incorrecta")
                 elif op3 == '5':
-                    print("TODO")
+                    op7 = input('Pulse 1 para consultar de los abonos sobre un mes.\n'
+                                'Pusle 2 para consultar los abonos que caduquen en un plazo de 10 dias\n ')
+                    if op7 == '1':
+                        mes = input('Indique el mes en formato numerico sobre el que buscar: ')
+                        adminController.imprimirConsulta(mes)
+                    elif op7 == '2':
+                        adminController.imprimirConsulta()
+
         else:
             print("Credenciales incorrectas")
-
-
