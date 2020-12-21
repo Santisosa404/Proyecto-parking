@@ -1,4 +1,4 @@
-from src.Models import MovRed
+from src.Models.MovRed import MovRed
 from src.Models.Motocicleta import Motocicleta
 from src.Models.Turismo import Turismo
 
@@ -18,12 +18,12 @@ class Parkingservice():
         turismo,moto,mov = 0,0,0
         for i in self.parking.dicVehiculos.values():
             if type(i) == Turismo:
-                turismo +=1
+                turismo += 1
             elif type(i) == Motocicleta:
-                moto +=1
+                moto += 1
             elif type(i) == MovRed:
-                mov+=1
+                mov += 1
         self.parking.plazasActuales = self.parking.plazasTotales-len(self.parking.dicVehiculos.keys())
-        self.parking.plazasTurismo -=turismo
-        self.parking.plazasMotocicletas -=moto
-        self.parking.plazasMovRed -=mov
+        self.parking.plazasTurismo -= turismo
+        self.parking.plazasMotocicletas -= moto
+        self.parking.plazasMovRed -= mov

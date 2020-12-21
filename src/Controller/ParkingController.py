@@ -89,18 +89,20 @@ class ParkingController():
         else:
             return False
     def retirarVehiculo(self,matricula,numPlaza,pin):
-        vehiculo =self.vehiculoService.buscarPorMatricula(matricula)
-        plaza = self.plazaService.buscarPorPlazaVerificandoPin(pin,numPlaza)
-        print(vehiculo.Plaza.pin)
-        if plaza.__eq__(vehiculo.Plaza):
-            vehiculo.fechaSalida=datetime.now()
-            vehiculo.Plaza=None
-            plaza.Vehiculo=None
-            plaza.ocupada=False
-            return self.ticketService.generarTicketSalida(vehiculo)
-        else:
-            return None
-
+        try:
+            vehiculo =self.vehiculoService.buscarPorMatricula(matricula)
+            plaza = self.plazaService.buscarPorPlazaVerificandoPin(pin,numPlaza)
+            print(vehiculo.Plaza.pin)
+            if plaza.__eq__(vehiculo.Plaza):
+                vehiculo.fechaSalida=datetime.now()
+                vehiculo.Plaza=None
+                plaza.Vehiculo=None
+                plaza.ocupada=False
+                return self.ticketService.generarTicketSalida(vehiculo)
+            else:
+                return None
+        except KeyError:
+            print("No se ha podido encontrar el vehiculo especificado")
     def retirarVehiculoAbonado(self,Abonado):
         Abonado.Vehiculo.Plaza =None
         Abonado.Vehiculo.fechaSalida=datetime.now()

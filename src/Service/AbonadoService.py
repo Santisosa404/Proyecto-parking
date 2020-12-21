@@ -11,12 +11,14 @@ class AbonadoServicio():
         return self._dicAbonado
 
     def comprobarAbonado(self,dni,matricula):
-        abonado =self.abonadoRepositorio.buscarAbonadoDni(dni)
-        if abonado.Vehiculo.matricula == matricula:
-            return True
-        else:
+        try:
+            abonado =self.abonadoRepositorio.buscarAbonadoDni(dni)
+            if abonado.Vehiculo.matricula == matricula:
+                return True
+            else:
+                return False
+        except KeyError:
             return False
-
     def buscarPorDni(self,dni):
         return self.abonadoRepositorio.buscarAbonadoDni(dni)
 
